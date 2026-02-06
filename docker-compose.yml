@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  scraper:
+    image: pydoll-phase1
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    # CRITICAL for Option B → allows Docker to reach ws://localhost:9222
+    network_mode: "host"
+
+    # Keep container interactive + logs visible
+    tty: true
+    stdin_open: true
+
+    # Mount only what you actually need now
+    volumes:
+      - ./data/output:/app/output
+
+    # (Optional but recommended) environment
+    environment:
+      - PYTHONUNBUFFERED=1
+
+    restart: "no"
